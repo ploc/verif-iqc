@@ -1,0 +1,30 @@
+real __updateOutput_1; real __updateOutput_2; real __updateOutput_3;
+real __updateOutput_4; real d1; real d2; real x1; real x2; real x3; real x4;
+real y1;
+real y2;
+d1 = rand_real(-0.3, 0.3);
+d2 = rand_real(-0.0015, 0.0015);
+x1 = rand_real(-2.398,2.398);
+x2 = rand_real(-0.756,0.756);
+x3 = rand_real(-6.818,6.818);
+x4 = rand_real(-18.633,18.633);
+y1 = rand_real(-109.857,109.857);
+y2 = rand_real(-163.121,163.121);
+__updateOutput_4 = x1;
+__updateOutput_3 = x2;
+__updateOutput_2 = x3;
+__updateOutput_1 = x4;
+  y2 = ((((((0. * __updateOutput_4) + ((0. - 30.) * __updateOutput_3))
+           + (0. * __updateOutput_2))
+          + (0. * __updateOutput_1))
+         + (30. * d1))
+        + (0. * d2));
+  y1 = (((((((0. - 3.) * __updateOutput_4) + (3. * __updateOutput_3))
+           + (0. * __updateOutput_2))
+          + (0. * __updateOutput_1))
+         + (0. * d1))
+        + (0. * d2));
+  __updateOutput_4 = x1;
+  __updateOutput_3 = x2;
+  __updateOutput_2 = x3;
+  __updateOutput_1 = x4;

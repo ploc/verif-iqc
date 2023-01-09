@@ -52,10 +52,10 @@ frama-c -wp -wp-model real -wp-timeout 60 -wp-prover Alt-Ergo-Poly LTI_system.c
 [wp] Warning: Missing RTE guards
 [wp] 14 goals scheduled
 [wp] Proved goals:   14 / 14
-  Qed:               6  (1ms-16ms)
-  Alt-Ergo-Poly :    8  (20ms-34ms) (126)
-  
-  
+  Qed:               6  (1ms-8ms-17ms)
+  Alt-Ergo-Poly :    8  (17ms-35ms) (126)
+
+
 frama-c -wp -wp-model real -wp-timeout 60 -wp-prover Alt-Ergo-Poly affine_LPV_system.c
 [kernel] Parsing affine_LPV_system.c (with preprocessing)
 [kernel:parser:decimal-float] affine_LPV_system.c:81: Warning:
@@ -64,10 +64,10 @@ frama-c -wp -wp-model real -wp-timeout 60 -wp-prover Alt-Ergo-Poly affine_LPV_sy
 [wp] Warning: Missing RTE guards
 [wp] 14 goals scheduled
 [wp] Proved goals:   14 / 14
-  Qed:               6  (2ms-9ms-21ms)
-  Alt-Ergo-Poly :    8  (44ms-141ms-264ms) (198)
-  
-  
+  Qed:               6  (2ms-8ms-17ms)
+  Alt-Ergo-Poly :    8  (39ms-114ms-227ms) (198)
+
+
 frama-c -wp -wp-model real -wp-timeout 60 -wp-prover Alt-Ergo-Poly large_LTI_system.c
 [kernel] Parsing large_LTI_system.c (with preprocessing)
 [kernel:parser:decimal-float] large_LTI_system.c:109: Warning:
@@ -76,6 +76,11 @@ frama-c -wp -wp-model real -wp-timeout 60 -wp-prover Alt-Ergo-Poly large_LTI_sys
 [wp] Warning: Missing RTE guards
 [wp] 28 goals scheduled
 [wp] Proved goals:   28 / 28
-  Qed:              20  (8ms-68ms-317ms)
-  Alt-Ergo-Poly :    8  (1.1s-16.3s-47.0s) (4806)
+  Qed:              20  (8ms-61ms-289ms)
+  Alt-Ergo-Poly :    8  (923ms-13.4s-39.2s) (4806)
+  
 ```
+
+Note that the floating point errors have been computed separately. You can find the scripts and associated intermediate computations in folder lus
+
+Files build/*.log_bounds contain the computed numerical errors

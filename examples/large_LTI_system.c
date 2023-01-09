@@ -27,33 +27,33 @@ The output bounds are the following:
 
 The floating point errors of each element of the state and output vectors are computed using the tiny tool, and their values are the following:
 State errors:
-e1 =
-e2 =
-e3 =
-e4 =
-e5 =
-e6 =
-e7 =
-e8 =
-e9 =
-e10 =
-e11 =
-e12 =
-e13 =
-e14 =
-e15 =
-e16 =
+x10:1.411699E-13
+x11:1.414911E-13
+x12:1.374805E-13
+x13:1.404930E-13
+x14:1.331288E-13
+x15:1.367513E-13
+x16:1.408495E-13
+x1:1.587635E-13
+x2:1.660575E-13
+x3:1.603789E-13
+x4:1.414581E-13
+x5:1.680394E-13
+x6:1.471209E-13
+x7:1.752915E-13
+x8:1.513350E-13
+x9:1.529184E-13
 
 Output errors:
-e1 =
-e2 =
-e3 =
-e4 =
+y1:1.722271E-13
+y2:2.375678E-13
+y3:2.402908E-13
+y4:1.329628E-13
 
 Float Model Analysis:
 
 State vector:
-The radius of the error ball associated with the state vector is: r = 16 * 0
+The radius of the error ball associated with the state vector is: r = 16 * 1.752915e-13
 The maximum and minimum eigenvalues of the matrix P (P is the matrix that defines the state invariant ellipsoid) are computed using MATLAB's eig function.
 MATLAB's algorithms for computing the eigenvalues of a positive definite matrix are generally accurate.
 Nevertheless, to stay on the safe side, we manually choose a lower bound to the minimum eigenvalue of P and an upper bound to the maximum eigenvalue of P.
@@ -61,7 +61,7 @@ Namely, in this example, lambda_min(P) = 0.0031 and lambda_max(P) = 8.5188; henc
 Hence, norm_x_max = 1/sqrt(0.003) = 18.2574.
 
 Output vector:
-The radius of the error ball associated with the output vector is: r = 4 * 0
+The radius of the error ball associated with the output vector is: r = 4 * 2.402908E-13
 The maximum and minimum eigenvalues of the matrix Q (Q is the matrix that defines the output invariant ellipsoid) are computed using MATLAB's eig function.
 To stay on the safe side, we manually choose a lower bound to the minimum eigenvalue of Q and an upper bound to the maximum eigenvalue of Q.
 Namely, in this example, lambda_min(Q) = 0.0015 and lambda_max(Q) = 0.3750; hence, we choose the values 0.001 and 0.38 to be the lower and upper bound of lamda_min(Q) and lambda_max(Q), respectively.
@@ -94,12 +94,12 @@ behavior polytope_input_real_model:
 	 behavior zero_input_float_model:
 	 assumes d1 == 0 && d2 == 0 && d3 == 0 && d4 == 0 && d5 == 0 && d6 == 0 && d7 == 0 && d8 == 0 && d9 == 0 && d10 == 0;
 
-	 ensures stateinv(\old(x->x1), \old(x->x2), \old(x->x3), \old(x->x4), \old(x->x5), \old(x->x6), \old(x->x7), \old(x->x8), \old(x->x9), \old(x->x10), \old(x->x11), \old(x->x12), \old(x->x13), \old(x->x14), \old(x->x15), \old(x->x16), 1) ==> stateinv(x->x1, x->x2, x->x3, x->x4, x->x5, x->x6, x->x7, x->x8, x->x9, x->x10, x->x11, x->x12, x->x13, x->x14, x->x15, x->x16, 1 - 2 * 16 * 0 * 8.55 * 18.2574 - 16 * 0 * 16 * 0 * 8.55);
+	 ensures stateinv(\old(x->x1), \old(x->x2), \old(x->x3), \old(x->x4), \old(x->x5), \old(x->x6), \old(x->x7), \old(x->x8), \old(x->x9), \old(x->x10), \old(x->x11), \old(x->x12), \old(x->x13), \old(x->x14), \old(x->x15), \old(x->x16), 1) ==> stateinv(x->x1, x->x2, x->x3, x->x4, x->x5, x->x6, x->x7, x->x8, x->x9, x->x10, x->x11, x->x12, x->x13, x->x14, x->x15, x->x16, 1 - 2 * 16 * 1.752915e-13 * 8.55 * 18.2574 - 16 * 1.752915e-13 * 16 * 1.752915e-13 * 8.55);
 
 behavior polytope_input_float_model:
 	 assumes -0.17786 <= d1 <= 0.17786 && -0.24119 <= d2 <= 0.24119 && -0.41152 <= d3 <= 0.41152 && -8.5914 <= d4 <= 8.5914 && -0.13755 <= d5 <= 0.13755 && -0.14191 <= d6 <= 0.14191 && -0.3605 <= d7 <= 0.3605 && -5.2603 <= d8 <= 5.2603 && -8.8649 <= d9 <= 8.8649 && -6.3586 <= d10 <= 6.3586;
 
-	 ensures stateinv(\old(x->x1), \old(x->x2), \old(x->x3), \old(x->x4), \old(x->x5), \old(x->x6), \old(x->x7), \old(x->x8), \old(x->x9), \old(x->x10), \old(x->x11), \old(x->x12), \old(x->x13), \old(x->x14), \old(x->x15), \old(x->x16), 1) ==> stateinv(x->x1, x->x2, x->x3, x->x4, x->x5, x->x6, x->x7, x->x8, x->x9, x->x10, x->x11, x->x12, x->x13, x->x14, x->x15, x->x16, 1 - 2 * 16 * 0 * 8.55 * 18.2574 - 16 * 0 * 16 * 0 * 8.55);
+	 ensures stateinv(\old(x->x1), \old(x->x2), \old(x->x3), \old(x->x4), \old(x->x5), \old(x->x6), \old(x->x7), \old(x->x8), \old(x->x9), \old(x->x10), \old(x->x11), \old(x->x12), \old(x->x13), \old(x->x14), \old(x->x15), \old(x->x16), 1) ==> stateinv(x->x1, x->x2, x->x3, x->x4, x->x5, x->x6, x->x7, x->x8, x->x9, x->x10, x->x11, x->x12, x->x13, x->x14, x->x15, x->x16, 1 - 2 * 16 * 1.752915e-13 * 8.55 * 18.2574 - 16 * 1.752915e-13 * 16 * 1.752915e-13 * 8.55);
 
 */
 
@@ -142,12 +142,12 @@ behavior polytope_input_real_model:
 behavior zero_input_float_model:
 	 assumes d1 == 0 && d2 == 0 && d3 == 0 && d4 == 0 && d5 == 0 && d6 == 0 && d7 == 0 && d8 == 0 && d9 == 0 && d10 == 0;
 
-	 ensures stateinv(\old(x->x1), \old(x->x2), \old(x->x3), \old(x->x4), \old(x->x5), \old(x->x6), \old(x->x7), \old(x->x8), \old(x->x9), \old(x->x10), \old(x->x11), \old(x->x12), \old(x->x13), \old(x->x14), \old(x->x15), \old(x->x16), 1) ==> outputinv(y->y1, y->y2, y->y3, y->y4, 1 - 2 * 16 * 0 * 0.38 * 31.6228 - 16 * 0 * 16 * 0 * 0.38);
+	 ensures stateinv(\old(x->x1), \old(x->x2), \old(x->x3), \old(x->x4), \old(x->x5), \old(x->x6), \old(x->x7), \old(x->x8), \old(x->x9), \old(x->x10), \old(x->x11), \old(x->x12), \old(x->x13), \old(x->x14), \old(x->x15), \old(x->x16), 1) ==> outputinv(y->y1, y->y2, y->y3, y->y4, 1 - 2 * 4 * 2.402908E-13 * 0.38 * 31.6228 - 4 * 2.402908E-13 * 4 * 2.402908E-13 * 0.38);
 
 behavior polytope_input_float_model:
 	 assumes -0.17786 <= d1 <= 0.17786 && -0.24119 <= d2 <= 0.24119 && -0.41152 <= d3 <= 0.41152 && -8.5914 <= d4 <= 8.5914 && -0.13755 <= d5 <= 0.13755 && -0.14191 <= d6 <= 0.14191 && -0.3605 <= d7 <= 0.3605 && -5.2603 <= d8 <= 5.2603 && -8.8649 <= d9 <= 8.8649 && -6.3586 <= d10 <= 6.3586;
 
-	 ensures stateinv(\old(x->x1), \old(x->x2), \old(x->x3), \old(x->x4), \old(x->x5), \old(x->x6), \old(x->x7), \old(x->x8), \old(x->x9), \old(x->x10), \old(x->x11), \old(x->x12), \old(x->x13), \old(x->x14), \old(x->x15), \old(x->x16), 1) ==> outputinv(y->y1, y->y2, y->y3, y->y4, 1 - 2 * 4 * 0 * 0.38 * 31.6228 - 4 * 0 * 4 * 0 * 0.38);
+	 ensures stateinv(\old(x->x1), \old(x->x2), \old(x->x3), \old(x->x4), \old(x->x5), \old(x->x6), \old(x->x7), \old(x->x8), \old(x->x9), \old(x->x10), \old(x->x11), \old(x->x12), \old(x->x13), \old(x->x14), \old(x->x15), \old(x->x16), 1) ==> outputinv(y->y1, y->y2, y->y3, y->y4, 1 - 2 * 4 * 2.402908E-13 * 0.38 * 31.6228 - 4 * 2.402908E-13 * 4 * 2.402908E-13 * 0.38);
 
 */
 

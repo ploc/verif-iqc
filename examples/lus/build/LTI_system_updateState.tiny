@@ -1,0 +1,57 @@
+real __updateState_1; real __updateState_2; real __updateState_3;
+real __updateState_4; real d1; real d2; real x1; real x2; real x3;
+real x4;
+d1 = rand_real(-1., 1.);
+d2 = rand_real(-1., 1.);
+x4 = ((((((0.6149 * __updateState_4) + ((0. - 9.8597) * __updateState_3))
+         + (0.8684 * __updateState_2))
+        + ((0. - 0.099) * __updateState_1))
+       + (6. * d1))
+      + (20. * d2));
+x3 = (((((((0. - 0.1025) * __updateState_4) + (0.6433 * __updateState_3))
+         + (0.8553 * __updateState_2))
+        + (0.1498 * __updateState_1))
+       + (0. * d1))
+      + (0. * d2));
+x2 = ((((((0. * __updateState_4) + (1. * __updateState_3))
+         + (0. * __updateState_2))
+        + (0.01 * __updateState_1))
+       + (0. * d1))
+      + (0. * d2));
+x1 = ((((((1. * __updateState_4) + (0. * __updateState_3))
+         + (0.01 * __updateState_2))
+        + (0. * __updateState_1))
+       + (0. * d1))
+      + (0. * d2));
+__updateState_4 = x1;
+__updateState_3 = x2;
+__updateState_2 = x3;
+__updateState_1 = x4;
+while (true) {
+  d1 = rand_real(-1., 1.);
+  d2 = rand_real(-1., 1.);
+  x4 = ((((((0.6149 * __updateState_4) + ((0. - 9.8597) * __updateState_3))
+           + (0.8684 * __updateState_2))
+          + ((0. - 0.099) * __updateState_1))
+         + (6. * d1))
+        + (20. * d2));
+  x3 = (((((((0. - 0.1025) * __updateState_4) + (0.6433 * __updateState_3))
+           + (0.8553 * __updateState_2))
+          + (0.1498 * __updateState_1))
+         + (0. * d1))
+        + (0. * d2));
+  x2 = ((((((0. * __updateState_4) + (1. * __updateState_3))
+           + (0. * __updateState_2))
+          + (0.01 * __updateState_1))
+         + (0. * d1))
+        + (0. * d2));
+  x1 = ((((((1. * __updateState_4) + (0. * __updateState_3))
+           + (0.01 * __updateState_2))
+          + (0. * __updateState_1))
+         + (0. * d1))
+        + (0. * d2));
+  __updateState_4 = x1;
+  __updateState_3 = x2;
+  __updateState_2 = x3;
+  __updateState_1 = x4;
+}

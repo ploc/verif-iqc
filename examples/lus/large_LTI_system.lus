@@ -1,0 +1,157 @@
+(* 
+The interval bounds of the elements of the state vector are obtained by projecting the state invariant ellipsoid onto the plane of interest.
+The state bounds are the following:
+|x1| <= 10.4331;
+|x2| <= 9.3613;
+|x3| <= 10.2649;
+|x4| <= 4.8187;
+|x5| <= 8.5475;
+|x6| <= 4.1197;
+|x7| <= 17.5804;
+|x8| <= 5.4132;
+|x9| <= 4.7693;
+|x10| <= 2.5524;
+|x11| <= 3.2844;
+|x12| <= 3.7161;
+|x13| <= 6.1067;
+|x14| <= 1.8785;
+|x15| <= 1.5947;
+|x16| <= 9.2954;
+
+The interval bounds of the elements of the output vector are also obtained by projecting the output invariant ellipsoid onto the plane of interest.
+The output bounds are the following:
+|y1| <= 9.0637;
+|y2| <= 14.8132;
+|y3| <= 24.7371;
+|y4| <= 1.6384;
+
+The floating point errors of each element of the state and output vectors are computed using the tiny tool, and their values are the following:
+State errors:
+e1 =
+e2 =
+e3 =
+e4 =
+e5 =
+e6 =
+e7 =
+e8 =
+e9 =
+e10 =
+e11 =
+e12 =
+e13 =
+e14 =
+e15 =
+e16 =
+
+Output errors:
+e1 =
+e2 =
+e3 =
+e4 =
+
+Float Model Analysis:
+
+State vector:
+The radius of the error ball associated with the state vector is: r = 16 * 0
+The maximum and minimum eigenvalues of the matrix P (P is the matrix that defines the state invariant ellipsoid) are computed using MATLAB's eig function.
+MATLAB's algorithms for computing the eigenvalues of a positive definite matrix are generally accurate.
+Nevertheless, to stay on the safe side, we manually choose a lower bound to the minimum eigenvalue of P and an upper bound to the maximum eigenvalue of P.
+Namely, in this example, lambda_min(P) = 0.0031 and lambda_max(P) = 8.5188; hence, we choose the values 0.003 and 8.55 to be the lower and upper bound of lamda_min(P) and lambda_max(P), respectively.
+Hence, norm_x_max = 1/sqrt(0.003) = 18.2574.
+
+Output vector:
+The radius of the error ball associated with the output vector is: r = 4 * 0
+The maximum and minimum eigenvalues of the matrix Q (Q is the matrix that defines the output invariant ellipsoid) are computed using MATLAB's eig function.
+To stay on the safe side, we manually choose a lower bound to the minimum eigenvalue of Q and an upper bound to the maximum eigenvalue of Q.
+Namely, in this example, lambda_min(Q) = 0.0015 and lambda_max(Q) = 0.3750; hence, we choose the values 0.001 and 0.38 to be the lower and upper bound of lamda_min(Q) and lambda_max(Q), respectively.
+Hence, norm_y_max = 1/sqrt(0.001) = 31.6228.
+
+*)
+
+(* 
+requires \valid(x);
+requires \separated(&(x->x1),&(x->x2),&(x->x3),&(x->x4),&(x->x5),&(x->x6),&(x->x7),&(x->x8),&(x->x9),&(x->x10),&(x->x11),&(x->x12),&(x->x13),&(x->x14),&(x->x15),&(x->x16));
+assigns *x;
+
+behavior zero_input_real_model:
+	 assumes d1 == 0 && d2 == 0 && d3 == 0 && d4 == 0 && d5 == 0 && d6 == 0 && d7 == 0 && d8 == 0 && d9 == 0 && d10 == 0;
+
+	 ensures stateinv(\old(x->x1), \old(x->x2), \old(x->x3), \old(x->x4), \old(x->x5), \old(x->x6), \old(x->x7), \old(x->x8), \old(x->x9), \old(x->x10), \old(x->x11), \old(x->x12), \old(x->x13), \old(x->x14), \old(x->x15), \old(x->x16), 1) ==> stateinv(x->x1, x->x2, x->x3, x->x4, x->x5, x->x6, x->x7, x->x8, x->x9, x->x10, x->x11, x->x12, x->x13, x->x14, x->x15, x->x16, 1);
+
+behavior polytope_input_real_model:
+	 assumes -0.17786 <= d1 <= 0.17786 && -0.24119 <= d2 <= 0.24119 && -0.41152 <= d3 <= 0.41152 && -8.5914 <= d4 <= 8.5914 && -0.13755 <= d5 <= 0.13755 && -0.14191 <= d6 <= 0.14191 && -0.3605 <= d7 <= 0.3605 && -5.2603 <= d8 <= 5.2603 && -8.8649 <= d9 <= 8.8649 && -6.3586 <= d10 <= 6.3586;
+
+	 ensures stateinv(\old(x->x1), \old(x->x2), \old(x->x3), \old(x->x4), \old(x->x5), \old(x->x6), \old(x->x7), \old(x->x8), \old(x->x9), \old(x->x10), \old(x->x11), \old(x->x12), \old(x->x13), \old(x->x14), \old(x->x15), \old(x->x16), 1) ==> stateinv(x->x1, x->x2, x->x3, x->x4, x->x5, x->x6, x->x7, x->x8, x->x9, x->x10, x->x11, x->x12, x->x13, x->x14, x->x15, x->x16, 1);
+	 
+	 behavior zero_input_float_model:
+	 assumes d1 == 0 && d2 == 0 && d3 == 0 && d4 == 0 && d5 == 0 && d6 == 0 && d7 == 0 && d8 == 0 && d9 == 0 && d10 == 0;
+
+	 ensures stateinv(\old(x->x1), \old(x->x2), \old(x->x3), \old(x->x4), \old(x->x5), \old(x->x6), \old(x->x7), \old(x->x8), \old(x->x9), \old(x->x10), \old(x->x11), \old(x->x12), \old(x->x13), \old(x->x14), \old(x->x15), \old(x->x16), 1) ==> stateinv(x->x1, x->x2, x->x3, x->x4, x->x5, x->x6, x->x7, x->x8, x->x9, x->x10, x->x11, x->x12, x->x13, x->x14, x->x15, x->x16, 1 - 2 * 16 * 0 * 8.55 * 18.2574 - 16 * 0 * 16 * 0 * 8.55);
+
+behavior polytope_input_float_model:
+	 assumes -0.17786 <= d1 <= 0.17786 && -0.24119 <= d2 <= 0.24119 && -0.41152 <= d3 <= 0.41152 && -8.5914 <= d4 <= 8.5914 && -0.13755 <= d5 <= 0.13755 && -0.14191 <= d6 <= 0.14191 && -0.3605 <= d7 <= 0.3605 && -5.2603 <= d8 <= 5.2603 && -8.8649 <= d9 <= 8.8649 && -6.3586 <= d10 <= 6.3586;
+
+	 ensures stateinv(\old(x->x1), \old(x->x2), \old(x->x3), \old(x->x4), \old(x->x5), \old(x->x6), \old(x->x7), \old(x->x8), \old(x->x9), \old(x->x10), \old(x->x11), \old(x->x12), \old(x->x13), \old(x->x14), \old(x->x15), \old(x->x16), 1) ==> stateinv(x->x1, x->x2, x->x3, x->x4, x->x5, x->x6, x->x7, x->x8, x->x9, x->x10, x->x11, x->x12, x->x13, x->x14, x->x15, x->x16, 1 - 2 * 16 * 0 * 8.55 * 18.2574 - 16 * 0 * 16 * 0 * 8.55);
+
+*)
+
+node updateState(d1, d2, d3, d4, d5, d6, d7, d8, d9, d10: real) returns (x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16: real);
+let
+
+	 x1 = 0.0191 * pre x1 + -0.8282 * pre x2 + -0.0939 * pre x3 + 0.0204 * pre x4 + 0.0025 * pre x5 + -0.0132 * pre x6 + 0.0118 * pre x7 + 0.1485 * pre x8 + 0.0268 * pre x9 + -0.0002 * pre x10 + -0.0049 * pre x11 + 0.0002 * pre x12 + 0.0004 * pre x13 + 0.0002 * pre x14 + 0.0003 * pre x15 + 0.0005 * pre x16 + -0.2705 * d1 + -0.0021 * d2 + 0.2905 * d3 + -0.0001 * d4 + -1.6135 * d5 + -0.0033 * d6 + 1.2417 * d7 + 0. * d8 + -0.0005 * d9 + 0. * d10;
+	 x2 = 0.8408 * pre x1 + 0.1735 * pre x2 + -0.0212 * pre x3 + -0.0406 * pre x4 + 0.0993 * pre x5 + -0.0098 * pre x6 + 0.0102 * pre x7 + 0.1881 * pre x8 + 0.0497 * pre x9 + 0.0063 * pre x10 + -0.0271 * pre x11 + -0.0021 * pre x12 + 0.0009 * pre x13 + -0.001 * pre x14 + -0.0057 * pre x15 + 0.0009 * pre x16 + -0.4045 * d1 + 0.0044 * d2 + 0.1619 * d3 + 0.0002 * d4 + -0.8561 * d5 + 0.0583 * d6 + -0.3968 * d7 + 0. * d8 + 0.0002 * d9 + -0.0003 * d10;
+	 x3 = 0.1682 * pre x1 + 0.0462 * pre x2 + -0.1397 * pre x3 + 0.023 * pre x4 + -0.6037 * pre x5 + 0.0194 * pre x6 + 0.0689 * pre x7 + 0.0972 * pre x8 + -0.2081 * pre x9 + -0.0133 * pre x10 + 0.0299 * pre x11 + 0.0019 * pre x12 + -0.0018 * pre x13 + -0.0068 * pre x14 + -0.0348 * pre x15 + 0.0018 * pre x16 + 0.0321 * d1 + -0.0087 * d2 + 0.9258 * d3 + -0.0002 * d4 + 1.1103 * d5 + -0.0958 * d6 + 1.41 * d7 + 0.0001 * d8 + -0.0002 * d9 + 0.0005 * d10;
+	 x4 = -0.0189 * pre x1 + 0.0287 * pre x2 + -0.0652 * pre x3 + -0.0217 * pre x4 + -0.0399 * pre x5 + -0.5493 * pre x6 + 0.0094 * pre x7 + -0.0131 * pre x8 + -0.0068 * pre x9 + 0.2481 * pre x10 + 0.0088 * pre x11 + -0.0032 * pre x12 + 0.0103 * pre x13 + -0.0001 * pre x14 + 0.0085 * pre x15 + 0.0143 * pre x16 + 0.0087 * d1 + 0.1856 * d2 + 0.0284 * d3 + 0.0017 * d4 + -0.0371 * d5 + 1.8827 * d6 + 0.0925 * d7 + -0.0003 * d8 + 0. * d9 + -0.0043 * d10;
+	 x5 = 0.0371 * pre x1 + -0.1 * pre x2 + 0.5701 * pre x3 + -0.0411 * pre x4 + 0.3847 * pre x5 + -0.0429 * pre x6 + 0.1007 * pre x7 + 0.1021 * pre x8 + -0.3973 * pre x9 + -0.0025 * pre x10 + 0.0197 * pre x11 + -0.0017 * pre x12 + -0.0008 * pre x13 + -0.0012 * pre x14 + -0.0056 * pre x15 + 0.0017 * pre x16 + 0.0232 * d1 + 0.0102 * d2 + 0.6745 * d3 + -0.0001 * d4 + 0.4131 * d5 + 0.1148 * d6 + 0.0219 * d7 + -0.0001 * d8 + 0. * d9 + -0.0007 * d10;
+	 x6 = -0.0027 * pre x1 + 0.0289 * pre x2 + 0.0407 * pre x3 + 0.5489 * pre x4 + 0.0136 * pre x5 + 0.5947 * pre x6 + 0.0073 * pre x7 + 0.0391 * pre x8 + -0.0099 * pre x9 + 0.3524 * pre x10 + 0.0027 * pre x11 + -0.0037 * pre x12 + 0.0154 * pre x13 + 0.0002 * pre x14 + 0.0111 * pre x15 + 0.0067 * pre x16 + -0.0101 * d1 + 0.0853 * d2 + 0.0263 * d3 + -0.0012 * d4 + -0.0789 * d5 + 0.4681 * d6 + 0.045 * d7 + 0.0004 * d8 + 0. * d9 + 0.006 * d10;
+	 x7 = -0.0185 * pre x1 + 0.0252 * pre x2 + -0.0707 * pre x3 + -0.0107 * pre x4 + 0.0496 * pre x5 + 0.0142 * pre x6 + 0.9758 * pre x7 + -0.063 * pre x8 + 0.0939 * pre x9 + -0.0043 * pre x10 + 0.0249 * pre x11 + 0.0032 * pre x12 + -0.001 * pre x13 + 0.001 * pre x14 + 0.006 * pre x15 + -0.0011 * pre x16 + 0.012 * d1 + -0.0032 * d2 + 0.0946 * d3 + 0. * d4 + -0.0971 * d5 + -0.0182 * d6 + -0.0278 * d7 + 0. * d8 + 0. * d9 + -0.0001 * d10;
+	 x8 = 0.129 * pre x1 + -0.1839 * pre x2 + -0.0384 * pre x3 + 0.0462 * pre x4 + 0.0814 * pre x5 + -0.0019 * pre x6 + 0.0497 * pre x7 + -0.3332 * pre x8 + -0.06 * pre x9 + 0.0275 * pre x10 + -0.3495 * pre x11 + -0.0247 * pre x12 + 0.0005 * pre x13 + -0.035 * pre x14 + -0.1778 * pre x15 + 0.0112 * pre x16 + 0.4659 * d1 + 0.0053 * d2 + -0.6207 * d3 + 0.0002 * d4 + 0.5881 * d5 + 0.0501 * d6 + -0.0537 * d7 + -0.0001 * d8 + 0.0004 * d9 + -0.0003 * d10;
+	 x9 = 0.0005 * pre x1 + -0.0306 * pre x2 + -0.2398 * pre x3 + -0.0129 * pre x4 + 0.3432 * pre x5 + 0.0473 * pre x6 + -0.0798 * pre x7 + 0.0207 * pre x8 + 0.1303 * pre x9 + 0.0171 * pre x10 + 0.3274 * pre x11 + 0.0272 * pre x12 + -0.0097 * pre x13 + -0.0507 * pre x14 + -0.2532 * pre x15 + 0.0209 * pre x16 + 0.0554 * d1 + 0.0059 * d2 + 0.4495 * d3 + 0. * d4 + 0.2293 * d5 + 0.0174 * d6 + -0.0878 * d7 + 0. * d8 + 0. * d9 + 0.0003 * d10;
+	 x10 = 0.0005 * pre x1 + 0.0115 * pre x2 + -0.007 * pre x3 + 0.2624 * pre x4 + 0.0382 * pre x5 + -0.3765 * pre x6 + 0.0042 * pre x7 + 0.0216 * pre x8 + -0.0112 * pre x9 + 0.3357 * pre x10 + 0.0217 * pre x11 + 0.0091 * pre x12 + 0.0301 * pre x13 + -0.0105 * pre x14 + -0.0337 * pre x15 + -0.0867 * pre x16 + -0.002 * d1 + -0.0329 * d2 + 0.0338 * d3 + -0.0012 * d4 + -0.0124 * d5 + -0.3293 * d6 + 0.0035 * d7 + 0.0001 * d8 + 0. * d9 + 0.0017 * d10;
+	 x11 = 0.0059 * pre x1 + 0.0711 * pre x2 + 0.0393 * pre x3 + -0.012 * pre x4 + 0.1127 * pre x5 + 0.0001 * pre x6 + -0.0099 * pre x7 + -0.1737 * pre x8 + 0.0285 * pre x9 + -0.0153 * pre x10 + 0.5277 * pre x11 + 0.0387 * pre x12 + 0.0161 * pre x13 + -0.0112 * pre x14 + -0.0626 * pre x15 + 0.0068 * pre x16 + 0.093 * d1 + -0.0047 * d2 + -0.2128 * d3 + 0.0006 * d4 + -0.1102 * d5 + -0.0119 * d6 + 0.4025 * d7 + 0. * d8 + 0.0001 * d9 + -0.0003 * d10;
+	 x12 = -0.0017 * pre x1 + 0.0072 * pre x2 + -0.0045 * pre x3 + -0.0061 * pre x4 + 0.013 * pre x5 + 0.0036 * pre x6 + -0.002 * pre x7 + -0.0044 * pre x8 + -0.0288 * pre x9 + 0.0184 * pre x10 + -0.1201 * pre x11 + 0.9811 * pre x12 + 0.0066 * pre x13 + 0.0054 * pre x14 + 0.0096 * pre x15 + 0.012 * pre x16 + 0.0085 * d1 + 0.0033 * d2 + 0.0016 * d3 + -0.0036 * d4 + -0.0153 * d5 + -0.0016 * d6 + 0.0243 * d7 + 0. * d8 + 0. * d9 + 0. * d10;
+	 x13 = 0. * pre x1 + -0.001 * pre x2 + -0.0023 * pre x3 + 0.0226 * pre x4 + -0.0011 * pre x5 + -0.0088 * pre x6 + 0. * pre x7 + -0.004 * pre x8 + -0.0084 * pre x9 + -0.134 * pre x10 + 0.0043 * pre x11 + 0.0072 * pre x12 + 0.9577 * pre x13 + -0.0156 * pre x14 + -0.0099 * pre x15 + -0.0404 * pre x16 + 0.0008 * d1 + -0.0173 * d2 + 0.0108 * d3 + 0.0147 * d4 + -0.001 * d5 + 0.0123 * d6 + -0.0115 * d7 + 0. * d8 + 0. * d9 + -0.0003 * d10;
+	 x14 = -0.0007 * pre x1 + 0.0022 * pre x2 + -0.0034 * pre x3 + -0.002 * pre x4 + -0.0047 * pre x5 + 0.003 * pre x6 + -0.0028 * pre x7 + -0.0333 * pre x8 + -0.0361 * pre x9 + 0.019 * pre x10 + -0.0092 * pre x11 + -0.0066 * pre x12 + -0.0066 * pre x13 + 0.8915 * pre x14 + -0.1308 * pre x15 + 0.0011 * pre x16 + 0.0307 * d1 + 0.0094 * d2 + 0.0289 * d3 + 0.006 * d4 + -0.0232 * d5 + -0.0061 * d6 + -0.0103 * d7 + 0. * d8 + 0. * d9 + -0.0001 * d10;
+	 x15 = -0.0038 * pre x1 + 0.0136 * pre x2 + -0.0173 * pre x3 + 0. * pre x4 + -0.0162 * pre x5 + 0.0027 * pre x6 + -0.0143 * pre x7 + -0.1538 * pre x8 + -0.1769 * pre x9 + 0.0004 * pre x10 + -0.0686 * pre x11 + -0.0432 * pre x12 + -0.013 * pre x13 + -0.1345 * pre x14 + 0.2439 * pre x15 + 0.0531 * pre x16 + 0.1631 * d1 + -0.008 * d2 + 0.139 * d3 + 0.0009 * d4 + -0.1188 * d5 + -0.0088 * d6 + -0.0414 * d7 + 0. * d8 + 0.0001 * d9 + -0.0003 * d10;
+	 x16 = 0.0003 * pre x1 + -0.0025 * pre x2 + 0.0016 * pre x3 + -0.0061 * pre x4 + -0.0035 * pre x5 + 0.0034 * pre x6 + 0.0009 * pre x7 + 0.0022 * pre x8 + 0.0119 * pre x9 + 0.0591 * pre x10 + 0.019 * pre x11 + 0.0059 * pre x12 + 0.0096 * pre x13 + -0.0014 * pre x14 + 0.0458 * pre x15 + 0.873 * pre x16 + -0.0114 * d1 + -0.0288 * d2 + -0.0044 * d3 + 0.0277 * d4 + 0.0082 * d5 + -0.001 * d6 + -0.0052 * d7 + 0. * d8 + 0. * d9 + -0.0003 * d10;
+
+tel
+
+
+(*
+requires \valid(x) && \valid(y);
+requires \separated(&(x->x1),&(x->x2),&(x->x3),&(x->x4),&(x->x5),&(x->x6),&(x->x7),&(x->x8),&(x->x9),&(x->x10),&(x->x11),&(x->x12),&(x->x13),&(x->x14),&(x->x15),&(x->x16),&(y->y1),&(y->y2),&(y->y3),&(y->y4));
+assigns *y;
+
+behavior zero_input_real_model:
+	 assumes d1 == 0 && d2 == 0 && d3 == 0 && d4 == 0 && d5 == 0 && d6 == 0 && d7 == 0 && d8 == 0 && d9 == 0 && d10 == 0;
+
+	 ensures stateinv(\old(x->x1), \old(x->x2), \old(x->x3), \old(x->x4), \old(x->x5), \old(x->x6), \old(x->x7), \old(x->x8), \old(x->x9), \old(x->x10), \old(x->x11), \old(x->x12), \old(x->x13), \old(x->x14), \old(x->x15), \old(x->x16), 1) ==> outputinv(y->y1, y->y2, y->y3, y->y4, 1);
+
+behavior polytope_input_real_model:
+	 assumes -0.17786 <= d1 <= 0.17786 && -0.24119 <= d2 <= 0.24119 && -0.41152 <= d3 <= 0.41152 && -8.5914 <= d4 <= 8.5914 && -0.13755 <= d5 <= 0.13755 && -0.14191 <= d6 <= 0.14191 && -0.3605 <= d7 <= 0.3605 && -5.2603 <= d8 <= 5.2603 && -8.8649 <= d9 <= 8.8649 && -6.3586 <= d10 <= 6.3586;
+
+	 ensures stateinv(\old(x->x1), \old(x->x2), \old(x->x3), \old(x->x4), \old(x->x5), \old(x->x6), \old(x->x7), \old(x->x8), \old(x->x9), \old(x->x10), \old(x->x11), \old(x->x12), \old(x->x13), \old(x->x14), \old(x->x15), \old(x->x16), 1) ==> outputinv(y->y1, y->y2, y->y3, y->y4, 1);
+	 
+behavior zero_input_float_model:
+	 assumes d1 == 0 && d2 == 0 && d3 == 0 && d4 == 0 && d5 == 0 && d6 == 0 && d7 == 0 && d8 == 0 && d9 == 0 && d10 == 0;
+
+	 ensures stateinv(\old(x->x1), \old(x->x2), \old(x->x3), \old(x->x4), \old(x->x5), \old(x->x6), \old(x->x7), \old(x->x8), \old(x->x9), \old(x->x10), \old(x->x11), \old(x->x12), \old(x->x13), \old(x->x14), \old(x->x15), \old(x->x16), 1) ==> outputinv(y->y1, y->y2, y->y3, y->y4, 1 - 2 * 16 * 0. * 0.38 * 31.6228 - 16 * 0. * 16 * 0. * 0.38);
+
+behavior polytope_input_float_model:
+	 assumes -0.17786 <= d1 <= 0.17786 && -0.24119 <= d2 <= 0.24119 && -0.41152 <= d3 <= 0.41152 && -8.5914 <= d4 <= 8.5914 && -0.13755 <= d5 <= 0.13755 && -0.14191 <= d6 <= 0.14191 && -0.3605 <= d7 <= 0.3605 && -5.2603 <= d8 <= 5.2603 && -8.8649 <= d9 <= 8.8649 && -6.3586 <= d10 <= 6.3586;
+
+	 ensures stateinv(\old(x->x1), \old(x->x2), \old(x->x3), \old(x->x4), \old(x->x5), \old(x->x6), \old(x->x7), \old(x->x8), \old(x->x9), \old(x->x10), \old(x->x11), \old(x->x12), \old(x->x13), \old(x->x14), \old(x->x15), \old(x->x16), 1) ==> outputinv(y->y1, y->y2, y->y3, y->y4, 1 - 2 * 4 * 0. * 0.38 * 31.6228 - 4 * 0. * 4 * 0. * 0.38);
+
+*)
+
+node updateOutput(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10: real) returns (y1, y2, y3, y4: real);
+let
+
+	 y1 = -0.1168 * pre x1 + -0.1356 * pre x2 + 0.1307 * pre x3 + -1.7424 * pre x4 + -0.1123 * pre x5 + 0.4046 * pre x6 + -0.0082 * pre x7 + -0.012 * pre x8 + 0.0207 * pre x9 + 0.4034 * pre x10 + -0.0063 * pre x11 + -0.0028 * pre x12 + 0.0158 * pre x13 + -0.004 * pre x14 + -0.0031 * pre x15 + -0.0047 * pre x16 + -0.0183 * d1 + -0.0317 * d2 + -0.0094 * d3 + -0.0042 * d4 + -0.0099 * d5 + -0.1178 * d6 + -0.0166 * d7 + -0.0013 * d8 + -0.0001 * d9 + -0.0182 * d10;
+	 y2 = 1.3036 * pre x1 + -0.7731 * pre x2 + -0.8455 * pre x3 + -0.0366 * pre x4 + 0.2469 * pre x5 + 0.0926 * pre x6 + -0.0655 * pre x7 + -0.82 * pre x8 + -0.3287 * pre x9 + 0.0199 * pre x10 + 0.1297 * pre x11 + 0.007 * pre x12 + -0.0009 * pre x13 + 0.0151 * pre x14 + 0.0797 * pre x15 + -0.0078 * pre x16 + -0.1673 * d1 + -0.0023 * d2 + -0.1095 * d3 + 0.0008 * d4 + -0.0918 * d5 + -0.0127 * d6 + -0.2402 * d7 + -0.0001 * d8 + 0.0005 * d9 + -0.0004 * d10;
+	 y3 = -0.8852 * pre x1 + 0.5562 * pre x2 + -1.4662 * pre x3 + -0.1324 * pre x4 + 0.6282 * pre x5 + 0.0653 * pre x6 + 0.0461 * pre x7 + 0.4353 * pre x8 + -0.3534 * pre x9 + 0.0001 * pre x10 + -0.0726 * pre x11 + -0.0136 * pre x12 + 0.0007 * pre x13 + 0. * pre x14 + -0.0016 * pre x15 + -0.0001 * pre x16 + 0.0762 * d1 + -0.0018 * d2 + -0.2622 * d3 + 0.0002 * d4 + -0.1724 * d5 + -0.0196 * d6 + -0.0378 * d7 + 0.0002 * d8 + -0.0006 * d9 + 0.0005 * d10;
+	 y4 = 0.0051 * pre x1 + -0.0024 * pre x2 + 0.0067 * pre x3 + 0.0215 * pre x4 + 0.0041 * pre x5 + -0.0316 * pre x6 + -0.0111 * pre x7 + 0.0024 * pre x8 + -0.0048 * pre x9 + 0.0194 * pre x10 + 0.0182 * pre x11 + 0.03 * pre x12 + -0.1299 * pre x13 + -0.0087 * pre x14 + -0.0128 * pre x15 + -0.0737 * pre x16 + 0.0003 * d1 + 0.0047 * d2 + 0.0067 * d3 + -0.0066 * d4 + 0.0031 * d5 + 0.0631 * d6 + 0.0244 * d7 + -0.0001 * d8 + 0. * d9 + -0.0001 * d10;
+
+tel
