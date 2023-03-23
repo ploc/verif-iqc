@@ -84,3 +84,7 @@ frama-c -wp -wp-model real -wp-timeout 60 -wp-prover Alt-Ergo-Poly large_LTI_sys
 Note that the floating point errors have been computed separately. You can find the scripts and associated intermediate computations in folder lus
 
 Files build/*.log_bounds contain the computed numerical errors
+
+## Docker
+
+A Docker image is prepared. More information is available at [Dockerfile-README.md](Dockerfile-README.md)
